@@ -2,7 +2,7 @@
 
 #Introduction
 CC_backend is back-end part of the "CodeClassRoom" project whose front-end will be based on REACT.This backend is built by [Gagan Singh](https://github.com/GAGANsinghmsitece) and 
-[https://github.com/Bhupesh-V].
+[Bhupesh](https://github.com/Bhupesh-V).
 
 
 ### Prerequisties
