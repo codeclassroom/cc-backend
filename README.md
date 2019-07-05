@@ -1,8 +1,8 @@
 # cc_backend
 
-### Introduction
-CC_backend is back-end part of the "CodeClassRoom" project whose front-end will be based on REACT.This backend is built by [Gagan Singh](https://github.com/GAGANsinghmsitece) and 
-[Bhupesh](https://github.com/Bhupesh-V).
+> cc_backend is back-end of the "CodeClassroom" project.
+This backend is built by [Gagan Singh](https://github.com/GAGANsinghmsitece) & 
+[Bhupesh Varshney](https://github.com/Bhupesh-V).
 
 
 ### Prerequisties
@@ -13,7 +13,7 @@ CC_backend is back-end part of the "CodeClassRoom" project whose front-end will 
 
 1. Create Virtual Environment.
 ```bash
-virtualenv -p python3 <name>
+virtualenv -p python3 cc && cd cc && source bin/activate
 ```
 2. Clone repository.
 ```bash
@@ -21,7 +21,7 @@ git clone https://github.com/codeclassroom/cc_backend.git
 ```
 3. Install Dependencies.
 ```bash
-pip3 install requirements.txt
+pip3 install -r requirements.txt
 ```
 4. Migrate Changes.
 ```bash
