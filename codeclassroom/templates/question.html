@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-Question:<br/>
-	{{ question.content }}
+
+<h2>{{ question.title }}</h2>
+	<ol type="1">
+		<h3>Description </h3>
+		{{ question.description }}
+		<h3>Sample Input </h3>
+		{{ question.sample_input }}
+		<h3>Sample Output </h3>
+		{{ question.sample_output }}
+	</ol>
 {% endblock content %}

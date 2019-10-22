@@ -56,11 +56,13 @@ class Assignment(models.Model):
 
 class Question(models.Model):
     assignment = models.ForeignKey(to=Assignment, on_delete=models.CASCADE)
-    content = models.CharField(max_length=2000, blank=False)
-    # instead of content, maybe have question statement, given input test cases and expected outputs
+    title = models.CharField(max_length=500, blank=True)
+    description = models.TextField(blank=True)
+    sample_input = models.TextField(blank=True)
+    sample_output = models.TextField(blank=True)
 
     def __str__(self):
-        return self.content
+        return self.title
 
 
 class Response(models.Model):
