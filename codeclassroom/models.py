@@ -1,56 +1,74 @@
-from django.db import models
-from django.contrib.auth.models import User
-
 '''For signup api endpoint we are expecting json response 
    {'user':'Gagansingh','password':#########,'choice':'Student/Professor'}
    depending on choice we will create their student or prof model
 '''
+from django.db import models
+from django.contrib.auth.models import User
 
 
 class Student(models.Model):
-	user = models.OneToOneField(User,on_delete=models.CASCADE)
-	name = models.CharField(max_length=100,blank=True)
-	ProfilePic = models.ImageField(upload_to='StudentProfilePic',blank=True)
-	College_Name = models.CharField(max_length=200,blank=True)
-	Course = models.CharField(max_length=50,blank=True)
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=True)
+    ProfilePic = models.ImageField(upload_to='StudentProfilePic', blank=True)
+    College_Name = models.CharField(max_length=200, blank=True)
+    Course = models.CharField(max_length=50, blank=True)
+
+    def __str__(self):
+        return self.name
 
 
 class Professor(models.Model):
-	user = models.OneToOneField(User,on_delete=models.CASCADE)
-	name = models.CharField(max_length=100,blank=True)
-	ProfilePic = models.ImageField(upload_to='ProfessorProfilePic',blank=True)
-	College_Name = models.CharField(max_length=200,blank=True)
+    '''I'm assuming a professor can create multiple classrooms and each classroom can have 
+    multiple classroom. if a classroom is deleted, all of the assignments of that class will
+    delete automatically.
+    '''
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, blank=True)
+    ProfilePic = models.ImageField(upload_to='ProfessorProfilePic', blank=True)
+    College_Name = models.CharField(max_length=200, blank=True)
 
-'''I'm assuming a professor can create multiple classrooms and each classroom can have 
-multiple classroom. if a classroom is deleted, all of the assignments of that class will
-delete automatically'''
+    def __str__(self):
+        return self.name
+
 
 class ClassRoom(models.Model):
-   professor = models.ForeignKey(Professor,on_delete=models.CASCADE)
-   title = models.CharField(max_length=200,blank=False)
-   student = models.ManyToManyField(Student,blank=True)
-   #because a student can join multiple classroom and each classroom can have multiple 
-   #students.For more info, refer to official docs
+    professor = models.ForeignKey(to=Professor, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, blank=False)
+    students = models.ManyToManyField(to=Student, blank=True)
+    #because a student can join multiple classroom and each classroom can have multiple 
+    #students.For more info, refer to official docs
+
+    class Meta:
+        verbose_name = 'ClassRoom'
+        verbose_name_plural = 'ClassRooms'
+
+    def __str__(self):
+        return self.title
 
 
-class Assignments(models.Model):
-   classroom = models.ForeignKey(ClassRoom,on_delete=models.CASCADE)
-   title = models.CharField(max_length=200,blank=False)
+class Assignment(models.Model):
+    classroom = models.ForeignKey(to=ClassRoom, on_delete=models.CASCADE)
+    title = models.CharField(max_length=200, blank=False)
+
+    def __str__(self):
+        return self.title
 
 
-class Questions(models.Model):
-	assignment = models.ForeignKey(Assignments,on_delete=models.CASCADE)
-	content = models.CharField(max_length=2000,blank=False)
+class Question(models.Model):
+    assignment = models.ForeignKey(to=Assignment, on_delete=models.CASCADE)
+    content = models.CharField(max_length=2000, blank=False)
+    # instead of content, maybe have question statement, given input test cases and expected outputs
+
+    def __str__(self):
+        return self.content
 
 
-class Respopnse(models.Model):
-	question = models.ForeignKey(Questions,on_delete=models.CASCADE)
-	student = models.ForeignKey(Student,on_delete=models.CASCADE)
-	answer = models.CharField(max_length=40000,blank=False)
-	remark = models.CharField(max_length=500,blank=True)#this field may be filled by prof 
-	#as remark
+class Response(models.Model):
+    question = models.ForeignKey(to=Question, on_delete=models.CASCADE)
+    student = models.ForeignKey(to=Student, on_delete=models.CASCADE)
+    answer = models.CharField(max_length=40000, blank=False)
+    remark = models.CharField(max_length=500, blank=True) # this field may be filled by prof as remark
 
 ### this project is built by "codeclassroom" organisation and all rights are thereby
 #reserved.Please ask before copying this code or project
 # happy coding!!!
-

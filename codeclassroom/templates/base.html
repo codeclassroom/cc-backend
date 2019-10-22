@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% if title %}
+	<title> CodeClassroom - {{ title }} </title>
+	{% else %}
+	<title> CodeClassroom </title>
+	{% endif %}
+</head>
+<body>
+	<!-- add nav-bar here -->
+	{% block content %}
+	{% endblock content %}
+</body>
+</html>
