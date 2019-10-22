@@ -2,12 +2,12 @@
 {% block content %}
 <h2> Assignments for {{ classroom.title }} </h2>
 <ol type="1">
-	{% for assignment in assignments %}
-	<li>
-		<h4>
-			<a href="{% url 'assignment' classroom=classroom.pk pk=assignment.pk %}">{{ assignment.title }}</a>
-		</h4>
-	</li>
-	{% endfor %}
+  {% for assignment in assignments %}
+  <li>
+    <h4>
+      <a href="{% url 'assignment' classroom=classroom.pk pk=assignment.pk %}">{{ assignment.title }}</a>
+    </h4>
+  </li>
+  {% endfor %}
 </ol>
 {% endblock content %}

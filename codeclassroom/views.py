@@ -3,8 +3,9 @@
    its associated questions can be viewed. Finally, in the question view, the problem statement, its 
    corresponding inputs and expected outputs may be viewed, and solutions may be submitted there.
 '''
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import ClassRoom, Assignment, Question
+from .forms import ResponseForm
 
 def index(request):
     '''Test index view. List out the existing classrooms.'''
@@ -27,14 +28,15 @@ def classroom(request, pk):
 
 def assignment(request, classroom, pk):
     '''Test assigment view. List out the assignment questions.'''
-    assigment = Assignment.objects.get(pk=pk)
+    classroom = ClassRoom.objects.get(pk=classroom)
+    assignment = Assignment.objects.get(pk=pk)
     questions = Question.objects.filter(assignment=pk)
     # can we filter assignment questions based on classroom, or is classroom an unnecessary parameter?
 
     context = {
         'title': 'Assignment Questions',
         'classroom': classroom,
-        'assignment': assigment,
+        'assignment': assignment,
         'questions': questions
     }
 
@@ -42,13 +44,34 @@ def assignment(request, classroom, pk):
 
 def question(request, classroom, assignment, pk):
     '''Test question view. Show the question's details, submit solutions.'''
+    classroom = ClassRoom.objects.get(pk=classroom)
+    assignment = Assignment.objects.get(pk=assignment)
     question = Question.objects.get(pk=pk)
+
+    # if request.method == 'POST':
+    #     form = ResponseForm(request.POST)
+
+    #     if form.is_valid():
+    #         response = form.save(commit=False)
+    #         response.question = question
+
+    #         # auth stuff needed?
+    #         # coderunner stuff
+
+    #         response.save()
+    #         return redirect('submission_result.html', ) # status as argument
+
+    # else:
+    #     form = ResponseForm()
+
+    form = ResponseForm()
 
     context = {
         'title': f'Question {pk}',
         'classroom': classroom,
-        'assigment': assignment,
+        'assignment': assignment,
         'question': question,
+        'form': form,
     }
 
     return render(request, 'question.html', context=context)

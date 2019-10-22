@@ -68,7 +68,10 @@ class Question(models.Model):
 class Response(models.Model):
     question = models.ForeignKey(to=Question, on_delete=models.CASCADE)
     student = models.ForeignKey(to=Student, on_delete=models.CASCADE)
-    answer = models.CharField(max_length=40000, blank=False)
+    submission = models.FileField(
+        upload_to=f'question{question}/submissions/{student}',
+        blank=False
+    )
     remark = models.CharField(max_length=500, blank=True) # this field may be filled by prof as remark
 
 ### this project is built by "codeclassroom" organisation and all rights are thereby

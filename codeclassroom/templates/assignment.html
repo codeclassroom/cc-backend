@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>Questions for {{ assignment.title }}</h2>
-	<ol type="1">
-	{% for question in questions %}
-		<li><a href="{% url 'question' classroom=classroom assignment=assignment.pk pk=question.pk %}">{{ question }}</a></li>
-	{% endfor %}
-	</ol>
+  <ol type="1">
+  {% for question in questions %}
+    <li><a href="{% url 'question' classroom=classroom.pk assignment=assignment.pk pk=question.pk %}">{{ question }}</a></li>
+  {% endfor %}
+  </ol>
 {% endblock content %}

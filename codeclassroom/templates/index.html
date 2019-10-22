@@ -2,12 +2,12 @@
 {% block content %}
 <h2> Classrooms: </h2>
 <ul>
-	{% for classroom in classrooms %}
-	<li>
-		<h4>
-			<a href="{% url 'classroom' classroom.pk %}">{{ classroom }}</a>
-		</h4>
-	</li>
-	{% endfor %}
+  {% for classroom in classrooms %}
+  <li>
+    <h4>
+      <a href="{% url 'classroom' classroom.pk %}">{{ classroom }}</a>
+    </h4>
+  </li>
+  {% endfor %}
 </ul>
 {% endblock content %}

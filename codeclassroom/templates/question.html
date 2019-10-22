@@ -1,13 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <h2>{{ question.title }}</h2>
-	<ol type="1">
-		<h3>Description </h3>
-		{{ question.description }}
-		<h3>Sample Input </h3>
-		{{ question.sample_input }}
-		<h3>Sample Output </h3>
-		{{ question.sample_output }}
-	</ol>
+<h3>Description</h3>
+{{ question.description }}
+<h3>Sample Input</h3>
+{{ question.sample_input|linebreaks }}
+<h3>Sample Output</h3>
+{{ question.sample_output|linebreaks }}
+<h4>Submit your solution:</h4>
+<form action="{% url 'question' classroom=classroom.pk assignment=assignment.pk pk=question.pk %}" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" name="" value="Submit">
+</form>
 {% endblock content %}
